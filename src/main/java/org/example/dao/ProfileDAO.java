@@ -38,4 +38,11 @@ public class ProfileDAO {
         }
         return null;
     }
+
+    public boolean deleteByUserId(int userId) throws Exception {
+        String sql = "DELETE FROM profiles WHERE user_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, userId);
+        return ps.executeUpdate() > 0;
+    }
 }

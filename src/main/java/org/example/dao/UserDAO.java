@@ -59,6 +59,13 @@ public class UserDAO {
         return rs.next() ? map(rs) : null;
     }
 
+    public boolean deleteById(int id) throws Exception {
+        String sql = "DELETE FROM users WHERE user_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        return ps.executeUpdate() > 0;
+    }
+
     private User map(ResultSet rs) throws Exception {
         return new User(
                 rs.getInt("user_id"),

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.in;
 
 public class CommentDAO {
 
@@ -27,5 +28,14 @@ public class CommentDAO {
         List<Comment> comments = new ArrayList<>();
         collection.find(eq("postId", postId)).into(comments);
         return comments;
+    }
+
+    public long deleteByUserId(int userId) {
+        return collection.deleteMany(eq("userId", userId)).getDeletedCount();
+    }
+
+    public long deleteByPostIds(java.util.List<org.bson.types.ObjectId> postIds) {
+        if (postIds == null || postIds.isEmpty()) return 0;
+        return collection.deleteMany(in("postId", postIds)).getDeletedCount();
     }
 }

@@ -12,7 +12,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class MongoConnection {
 
-    private static final String URI = "mongodb://localhost:27017";
+    private static final String URI = "mongodb://localhost:27017/";
     private static final String DB_NAME = "social_media_app";
 
     private static MongoClient client;

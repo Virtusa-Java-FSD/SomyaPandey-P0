@@ -4,8 +4,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.example.config.MongoConnection;
 import org.example.model.Like;
-
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.in;
 
 public class LikeDAO {
 
@@ -22,5 +22,14 @@ public class LikeDAO {
 
     public long countLikes(org.bson.types.ObjectId postId) {
         return collection.countDocuments(eq("postId", postId));
+    }
+
+    public long deleteByUserId(int userId) {
+        return collection.deleteMany(eq("userId", userId)).getDeletedCount();
+    }
+
+    public long deleteByPostIds(java.util.List<org.bson.types.ObjectId> postIds) {
+        if (postIds == null || postIds.isEmpty()) return 0;
+        return collection.deleteMany(in("postId", postIds)).getDeletedCount();
     }
 }
